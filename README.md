@@ -11,4 +11,4 @@ If you want to secure it more closely, you can specify the allowed addresses all
 Environment variables:
  * HOSTNAME: Hostname to use for container identification
  * SUBNET: defines a SUBNET to listen to (defaults to only 127.0.0.1). If set to e.g. 192.168, it will listen to all machines on the 192.168.0.0/16 subnetwork
- * WHITELIST_FROM: comma separated list of email addresses allowed as the originator of the mail. If set, automatically sets a blacklist to everything else
+ * WHITELIST_FROM: comma separated list of email addresses allowed as the originator of the mail. If set, automatically blacklists everything else
