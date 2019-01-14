@@ -14,6 +14,8 @@ sed -i "s|O DaemonPortOptions=Family=inet,  Name=MTA-v4, Port=smtp, Addr=127.0.0
 
 # If not already configured
 if grep -q "Connect:${SUBNET}                     RELAY" "/etc/mail/access"; then
+    echo "mail access file already configured"
+else
     # 2. Tell sendmail to accept local network
     echo "Connect:${SUBNET}                     RELAY" >> /etc/mail/access
     echo "GreetPause:${SUBNET}                  0" >> /etc/mail/access
@@ -30,10 +32,10 @@ if grep -q "Connect:${SUBNET}                     RELAY" "/etc/mail/access"; the
         # blacklist everything else
         echo "From:                  REJECT" >> /etc/mail/access
     fi
-fi
 
-# Apply the changes
-cd /etc/mail && make access.db
+    # Apply the changes
+    cd /etc/mail && make access.db
+fi
 
 # run in foreground
 # sendmail -bD
