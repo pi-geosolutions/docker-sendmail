@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 MAINTAINER Jean Pommier "jean.pommier@pi-geosolutions.fr"
 
@@ -11,5 +11,7 @@ ENV SUBNET 10.42
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod u+x /entrypoint.sh
+
+EXPOSE 25
 
 ENTRYPOINT ["/entrypoint.sh"]
