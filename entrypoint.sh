@@ -13,6 +13,12 @@ echo  "${HOSTNAME}" > /etc/hostname
 sed -i "s|O DaemonPortOptions=Family=inet,  Name=MTA-v4, Port=smtp, Addr=127.0.0.1|O DaemonPortOptions=Family=inet,  Name=MTA-v4, Port=smtp, Addr=${IP}|" /etc/mail/sendmail.cf
 sed -i "s|# FEATURE(\`access_db', , \`skip')dnl|# FEATURE(\`access_db')dnl|" /etc/mail/sendmail.cf
 # If not already configured
+if [[ -z "$SUBNET" ]]; then
+  # try to determine the subnet by extracting this container s subnet
+  SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {print $4}' | awk -F "." '{print $1"."$2}')
+  echo "SUBNET env var was not set. Will try running with SUBNET=$SUBNET"
+fi
+
 if grep -q "Connect:${SUBNET}                     RELAY" "/etc/mail/access"; then
     echo "mail access file already configured"
 else
@@ -40,7 +46,7 @@ else
 fi
 
 # run in foreground
-# sendmail -bD
+# sendmail -bD -v -d
 service sendmail restart
 
 # keep running

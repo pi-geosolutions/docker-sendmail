@@ -14,9 +14,10 @@ services:
     image: pigeosolutions/sendmail:latest
     build: .
     environment:
-      HOSTNAME: geoportalksk.sk
+      HOSTNAME: mydomain.org
       SUBNET: '10.42'
-      WHITELIST_FROM: 'portal@georchestra.dev.pigeosolutions.fr'
+    # ports:
+    #   - "25:25"
     restart: always
     networks:
       default:

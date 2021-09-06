@@ -35,3 +35,5 @@ You can use the docker compose file to test the image.
     --mail-from '[an email address]' --mail-rcpt '[a valid email address]' \
     --upload-file /tmp/mail.txt
 ```
+
+***Note:*** the sendmail service takes some time to configure. If the service seems not to work properly, look at the logs and make sure the line `Restarting Mail Transport Agent (MTA): sendmail.` appeared
