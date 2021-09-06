@@ -1,0 +1,31 @@
+version : '3.1'
+
+services:
+  curl:
+    image: curlimages/curl:latest
+    command: sleep 10000
+    restart: always
+    networks:
+      default:
+        aliases:
+          - curl
+
+  sendmail:
+    image: pigeosolutions/sendmail:latest
+    build: .
+    environment:
+      HOSTNAME: geoportalksk.sk
+      SUBNET: '10.42'
+      WHITELIST_FROM: 'portal@georchestra.dev.pigeosolutions.fr'
+    restart: always
+    networks:
+      default:
+        aliases:
+          - sendmail
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet:  10.42.0.0/16
